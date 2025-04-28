@@ -1,15 +1,19 @@
-# Setting Up a Mail Server on Ubuntu Server 24.04
-
-VM Configuration:
-• Name: mail-server
-• OS: Ubuntu Debian 12
-• CPU: 2 Cores
-• RAM: 6GB
-• Disk: 32GB
-• Network: Bridge mode (vmbr0)
-• Domain: firma.ua
-• Time Zone: Asia/Yerevan
 # How to Install and Configure Postfix and Dovecot on Debian 12 (Local Mail Server)
+VM Configuration:
+
+• Name: mail-server
+
+• OS: Ubuntu Debian 12
+
+• CPU: 2 Cores
+
+• RAM: 6GB
+
+• Disk: 32GB
+
+• Network: Bridge mode
+
+• Domain: firma.ua
 
 ---
 
@@ -245,7 +249,7 @@ Thunderbird must be opened from a graphical environment. in my Ubuntu install an
 4. Fill in the settings as shown above.
 5. Click "Done." (and Advansed config)
    
-[!ing](https://github.com/Sonakhach/mail_box/blob/main/Screenshot%20from%202025-04-28%2000-05-34.png)
+[!img](https://github.com/Sonakhach/mail_box/blob/main/Screenshot%20from%202025-04-28%2000-05-34.png)
 
  **Manual config:**
  
@@ -256,7 +260,7 @@ Port | 110 (POP3 or IMAP) | 25 (SMTP )
 SSL | None (without SSL) | None (without SSL)
 Authentication | Normal password | Normal password
 
-[!ing](https://github.com/Sonakhach/mail_box/blob/main/Screenshot%20from%202025-04-28%2016-56-10.png)
+[!img](https://github.com/Sonakhach/mail_box/blob/main/Screenshot%20from%202025-04-28%2016-56-10.png)
 
 ```ip a``` give  your WM ip, than is your server ip (e. g., 192.168.10.107)
 
@@ -286,7 +290,7 @@ Search for the following key (type it in search).
 
 Emails received during the new profile will now be closed in separate files.
 
-[!ing](https://github.com/Sonakhach/mail_box/blob/main/Screenshot%20from%202025-04-28%2001-29-22.png)
+[!img](https://github.com/Sonakhach/mail_box/blob/main/Screenshot%20from%202025-04-28%2001-29-22.png)
 
 # Conclusion
 
@@ -295,7 +299,7 @@ Emails received during the new profile will now be closed in separate files.
 - Using Maildir format ensures better mail storage (one file per email).
 - Fully local setup means emails never leave your server.
 - 
-[!ing](https://github.com/Sonakhach/mail_box/blob/main/Screenshot%20from%202025-04-28%2001-39-48.png)
+[!img](https://github.com/Sonakhach/mail_box/blob/main/Screenshot%20from%202025-04-28%2001-39-48.png)
 
 You now have a working local email server for testing and internal communication with Thunderbird!
 
