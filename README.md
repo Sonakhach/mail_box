@@ -48,7 +48,7 @@ sudo postconf -e 'home_mailbox= mail/'
 sudo postconf -e 'virtual_alias_maps= hash:/etc/postfix/virtual'
 sudo nano /etc/postfix/virtual
 ```
-this file our data storage for users(e.g., ` mail`user@firma.ua`     `username`user1`)
+this file our data storage for users(e.g., ` mail`user1@firma.ua`     `username`user1`)
 
 ```
 sudo postmap /etc/postfix/virtual
