@@ -243,7 +243,9 @@ Thunderbird must be opened from a graphical environment. in my Ubuntu install an
 2. Enter Name, Email (e.g., user1@example.local), and Password(e.g.,user123).
 3. Click "Manual Config."
 4. Fill in the settings as shown above.
-5. Click "Done."
+5. Click "Done." (and Advansed config)
+   
+[!ing](https://github.com/Sonakhach/mail_box/blob/main/Screenshot%20from%202025-04-28%2000-05-34.png)
 
  **Manual config:**
  
@@ -254,6 +256,10 @@ Port | 110 (POP3 or IMAP) | 25 (SMTP )
 SSL | None (without SSL) | None (without SSL)
 Authentication | Normal password | Normal password
 
+[!ing](https://github.com/Sonakhach/mail_box/blob/main/Screenshot%20from%202025-04-28%2016-56-10.png)
+
+```ip a``` give  your WM ip, than is your server ip (e. g., 192.168.10.107)
+
 Thunderbird will try to connect to your server.
 
 If everything is set up correctly (Postfix and Dovecot are working properly), you will be able to receive and send emails.
@@ -263,6 +269,24 @@ If everything is set up correctly (Postfix and Dovecot are working properly), yo
 Since you are not using SSL yet, this means you need to make sure that the ports are open in your firewall (110, 25) and that your server's Postfix/Dovecot configs are working without TLS.
 
 ---
+When I want all users' emails to be stored in the same local folder, I need to make a small change.
+
+How to enable Maildir in Thunderbird
+Open Thunderbird.
+
+From the top menu, go to:
+Edit → Preferences (or Settings in different versions).
+
+Open the General section.
+
+At the end, you will find the Config Editor... button, click it.
+
+Search for the following key (type it in search).
+```mail.store.default_store_contractid```   You need to change the value like this:   ```@mozilla.org/msgstore/maildirstore;1```  and make restar thunderbird
+
+Emails received during the new profile will now be closed in separate files.
+
+[!ing](https://github.com/Sonakhach/mail_box/blob/main/Screenshot%20from%202025-04-28%2001-29-22.png)
 
 # Conclusion
 
@@ -270,6 +294,8 @@ Since you are not using SSL yet, this means you need to make sure that the ports
 - Dovecot manages client access to mailboxes.
 - Using Maildir format ensures better mail storage (one file per email).
 - Fully local setup means emails never leave your server.
+- 
+[!ing](https://github.com/Sonakhach/mail_box/blob/main/Screenshot%20from%202025-04-28%2001-39-48.png)
 
 You now have a working local email server for testing and internal communication with Thunderbird!
 
