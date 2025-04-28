@@ -30,7 +30,7 @@ sudo apt install postfix -y
 ```
 
 - During installation, select "Internet Site."
-- Set the system mail name (your local domain, e.g., `example.local`).
+- Set the system mail name (your local domain, e.g., `firma.ua`).
 
 Reconfigure Postfix if needed:
 
@@ -47,6 +47,10 @@ sudo postconf -e 'home_mailbox= mail/'
 ```bash
 sudo postconf -e 'virtual_alias_maps= hash:/etc/postfix/virtual'
 sudo nano /etc/postfix/virtual
+```
+this file our data storage for users(e.g., ` mail`user@firma.ua`     `username`user1`)
+
+```
 sudo postmap /etc/postfix/virtual
 ```
 
@@ -80,8 +84,6 @@ postconf mail_version
 ```bash
 sudo adduser user1
 sudo adduser user2
-sudo adduser user3
-sudo adduser user4
 ```
 
 Each user will have their mailbox under `/home/username/mail/`.
@@ -91,7 +93,7 @@ Each user will have their mailbox under `/home/username/mail/`.
 ## Step 3: Install Dovecot
 
 ```bash
-sudo apt install dovecot-imapd dovecot-pop3d -y
+sudo apt install dovecot-imapd dovecot-core dovecot-pop3d -y
 ```
 
 ### Verify Dovecot Installation
@@ -121,12 +123,42 @@ Find and set:
 ```bash
 mail_location = maildir:~/Maildir
 ```
+```bash
+sudo nano /etc/dovecot/dovecot.conf
+```
+
+Find and set:  ```  listen= *,:```
+
+```bash
+sudo nano -l /etc/dovecot/conf.d/10-auth.conf
+```
+
+Find and set:  ```  disable_plaintex_auth=no ```     ```auth_mechanisms=plain login```
+
+
+```bash
+sudo nano -l /etc/dovecot/conf.d/10-master.conf
+```
+
+Find and set:
+
+```bash
+unix_listner /var/spool/postfix/auth {
+  mode= 0666
+  user=postfix
+  group=postfix
+}
+```
+
 
 Restart Dovecot:
 
 ```bash
 sudo systemctl restart dovecot
+sudo systemctl status dovecot
 ```
+
+```netstat -tlpn```
 
 ---
 
@@ -135,10 +167,10 @@ sudo systemctl restart dovecot
 Ensure `/etc/hosts` contains:
 
 ```bash
-127.0.0.1   localhost example.local
+127.0.0.1   localhost firma.ua
 ```
 
-Replace `example.local` with your server hostname if needed.
+Replace `firma.ua` with your server hostname if needed.
 
 ---
 
