@@ -187,9 +187,8 @@ sudo ufw allow 143/tcp
 
 
 🔥 Ports You Need to Open (Postfix + Dovecot + Thunderbird):
-| Task | Command |Command |Command |Command |
-|:-----|:--------|:-----|:--------|:-----|
 |Port | Protocol | Service | Description | Use|
+|:-----|:--------|:-----|:--------|:-----|
 |25 | TCP | SMTP (Postfix) | Sending emails between servers and from client (Thunderbird) if you configure SMTP | Required |
 |110 | TCP | POP3 (Dovecot) | Receiving emails by downloading to client (Thunderbird POP3 account) | Optional if using POP3 |
 |143 | TCP | IMAP (Dovecot) | Receiving emails (Thunderbird IMAP account, emails stay on server) | Recommended instead of POP3 |
@@ -247,10 +246,9 @@ Thunderbird must be opened from a graphical environment. in my Ubuntu install an
 5. Click "Done."
 
  **Manual config:**
-
-| Task | Command |Command |
-|:-----|:--------|:-----|
+ 
 Setting | Incoming (POP3) | Outgoing (SMTP)
+|:-----|:--------|:-----|
 Server hostname | your server IP or hostname (in my case 192.168.10.107) | 192.168.10.107
 Port | 110 (POP3 or IMAP) | 25 (SMTP )
 SSL | None (without SSL) | None (without SSL)
@@ -264,8 +262,6 @@ If everything is set up correctly (Postfix and Dovecot are working properly), yo
 🌟 Special Note
 Since you are not using SSL yet, this means you need to make sure that the ports are open in your firewall (110, 25) and that your server's Postfix/Dovecot configs are working without TLS.
 
-
-
 ---
 
 # Conclusion
@@ -278,6 +274,3 @@ Since you are not using SSL yet, this means you need to make sure that the ports
 You now have a working local email server for testing and internal communication with Thunderbird!
 
 ---
-
-# End of Documentation
-
