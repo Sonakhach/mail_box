@@ -112,6 +112,8 @@ sudo systemctl status dovecot
 
 ## Step 4: Basic Setup for Dovecot
 
+for a full working Postfix+Dovecot integration, especially when SMTP Authentication is needed, we must also configure:
+
 Edit mailbox settings:
 
 ```bash
@@ -120,21 +122,32 @@ sudo nano /etc/dovecot/conf.d/10-mail.conf
 
 Find and set:
 
+In most modern Dovecot setups, Maildir default location is ~/Maildir (with capital M) ```mail_location = maildir:~/Maildir```.
+BUT — in my Postfix setup I clearly defined this line:
+
+ So, Dovecot must match where Postfix delivers emails. Therefore, the correct setting for me is:
+ 
 ```bash
-mail_location = maildir:~/Maildir
+mail_location = maildir:~/mail
 ```
+Otherwise Dovecot would look in wrong directory and not find my mails!
+
+
 ```bash
 sudo nano /etc/dovecot/dovecot.conf
 ```
 
-Find and set:  ```  listen= *,:```
+Find and set: 
+```  listen= *,:```➔ Makes Dovecot listen on all network interfaces (important for IMAP and SMTP authentication).
 
 ```bash
 sudo nano -l /etc/dovecot/conf.d/10-auth.conf
 ```
 
-Find and set:  ```  disable_plaintex_auth=no ```     ```auth_mechanisms=plain login```
+Find and set:  
+```  disable_plaintex_auth=no ```     ```auth_mechanisms=plain login```
 
+➔ Allows Dovecot to accept plaintext login when STARTTLS is not configured (local testing).
 
 ```bash
 sudo nano -l /etc/dovecot/conf.d/10-master.conf
@@ -149,7 +162,7 @@ unix_listner /var/spool/postfix/auth {
   group=postfix
 }
 ```
-
+➔ So that Postfix can authenticate SMTP users via Dovecot.
 
 Restart Dovecot:
 
@@ -157,10 +170,54 @@ Restart Dovecot:
 sudo systemctl restart dovecot
 sudo systemctl status dovecot
 ```
+If you want to see open ports:
 
-```netstat -tlpn```
+```netstat -tlpn``` 
+
+If you want to check if firewall (ufw) is running: ```sudo ufw status``
+If ufw is not installed, install it: ```sudo apt install ufw```
+sudo ufw enable ```sudo ufw enable```
+Open required ports: 
+```
+sudo ufw allow 25/tcp
+sudo ufw allow 110/tcp
+sudo ufw allow 143/tcp
+
+```
+
+
+🔥 Ports You Need to Open (Postfix + Dovecot + Thunderbird):
+
+Port | Protocol | Service | Description | Use
+25 | TCP | SMTP (Postfix) | Sending emails between servers and from client (Thunderbird) if you configure SMTP | Required
+110 | TCP | POP3 (Dovecot) | Receiving emails by downloading to client (Thunderbird POP3 account) | Optional if using POP3
+143 | TCP | IMAP (Dovecot) | Receiving emails (Thunderbird IMAP account, emails stay on server) | Recommended instead of POP3
+587 | TCP | SMTP (Submission) (Postfix) | Sending email securely from client to server (better than port 25) | Highly Recommended
+993 | TCP | IMAPS (Dovecot) | Secure IMAP (IMAP over SSL/TLS) | Optional if you use SSL/TLS
+995 | TCP | POP3S (Dovecot) | Secure POP3 (POP3 over SSL/TLS) | Optional if you use SSL/TLS
+
+✅ Minimum for you (local testing without SSL):
+
+Port 25 → for SMTP sending
+
+Port 110 → for POP3 receiving (if you use POP3)
+
+Port 143 → for IMAP receiving (if you use IMAP)
+
+(Thunderbird will need either 110 or 143 depending on your choice.)
 
 ---
+✅ So in my case, everything must be aligned:
+
+Postfix writes mails to ~/mail/
+
+Dovecot reads mails from ~/mail/
+
+Dovecot allows authentication
+
+Dovecot listens on all interfaces
+
+Postfix can authenticate clients (Thunderbird) over port 25.
 
 ## Step 5: Configure Mail Domain (Local Domain)
 
