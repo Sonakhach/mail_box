@@ -234,41 +234,37 @@ Replace `firma.ua` with your server hostname if needed.
 
 ## Step 6: Setup Email Client (Thunderbird)
 
+Thunderbird must be opened from a graphical environment. in my Ubuntu install and run thunderbird.
+
+```sudo apt install thunderbird``` and run ```thunderbird &``` or ```thunderbird -P```
+
 **Settings for Thunderbird email client:**
 
-- **Incoming Mail Server (IMAP or POP3):**
-  - Server: your-server-ip (e.g., 192.168.1.10)
-  - IMAP Port: 143 (for IMAP)
-  - POP3 Port: 110 (for POP3)
-  - Connection Security: STARTTLS or None (for local testing)
-
-- **Outgoing Mail Server (SMTP):**
-  - Server: your-server-ip
-  - SMTP Port: 25
-  - Connection Security: STARTTLS or None (for local testing)
-
-- **Authentication:**
-  - Username: system username (e.g., user1)
-  - Password: the password created via `adduser`
-
-**Thunderbird Setup Steps:**
-
 1. Open Thunderbird > Add New Account.
-2. Enter Name, Email (e.g., user1@example.local), and Password.
+2. Enter Name, Email (e.g., user1@example.local), and Password(e.g.,user123).
 3. Click "Manual Config."
 4. Fill in the settings as shown above.
 5. Click "Done."
 
+ **Manual config:**
+
+| Task | Command |Command |
+|:-----|:--------|:-----|
+Setting | Incoming (POP3) | Outgoing (SMTP)
+Server hostname | your server IP or hostname (in my case 192.168.10.107) | 192.168.10.107
+Port | 110 (POP3 or IMAP) | 25 (SMTP )
+SSL | None (without SSL) | None (without SSL)
+Authentication | Normal password | Normal password
+
+Thunderbird will try to connect to your server.
+
+If everything is set up correctly (Postfix and Dovecot are working properly), you will be able to receive and send emails.
+
 ---
+🌟 Special Note
+Since you are not using SSL yet, this means you need to make sure that the ports are open in your firewall (110, 25) and that your server's Postfix/Dovecot configs are working without TLS.
 
-# Helpful Commands
 
-| Task | Command |
-|:-----|:--------|
-| Reload Postfix config | `sudo systemctl reload postfix` |
-| Reload Dovecot config | `sudo systemctl restart dovecot` |
-| See mail queue (Postfix) | `mailq` |
-| Force flush mail queue | `postqueue -f` |
 
 ---
 
