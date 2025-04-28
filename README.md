@@ -3,7 +3,7 @@ VM Configuration:
 
 • Name: mail-server
 
-• OS: Ubuntu Debian 12
+• OS:  Debian 12
 
 • CPU: 2 Cores
 
