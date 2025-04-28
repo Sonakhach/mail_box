@@ -187,7 +187,7 @@ sudo ufw allow 143/tcp
 
 
 🔥 Ports You Need to Open (Postfix + Dovecot + Thunderbird):
-
+| Task | Command |Command |Command |Command |
 Port | Protocol | Service | Description | Use
 25 | TCP | SMTP (Postfix) | Sending emails between servers and from client (Thunderbird) if you configure SMTP | Required
 110 | TCP | POP3 (Dovecot) | Receiving emails by downloading to client (Thunderbird POP3 account) | Optional if using POP3
