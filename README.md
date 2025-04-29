@@ -180,10 +180,23 @@ If you want to see open ports:
 
 ```netstat -tlpn``` 
 
-If you want to check if firewall (ufw) is running: ```sudo ufw status``
-If ufw is not installed, install it: ```sudo apt install ufw```
-sudo ufw enable ```sudo ufw enable```
+If you want to check if firewall (ufw) is running: 
+
+```
+sudo ufw status
+```
+If ufw is not installed, install it: 
+
+```
+sudo apt install ufw
+```
+sudo ufw enable 
+
+```
+sudo ufw enable
+```
 Open required ports: 
+
 ```
 sudo ufw allow 25/tcp
 sudo ufw allow 110/tcp
