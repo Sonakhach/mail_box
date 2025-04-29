@@ -15,6 +15,8 @@ VM Configuration:
 
 • Domain: firma.ua
 
+-> ssh -p 2020 claud@192.168.10.107
+
 ---
 
 ## Terminology Explained
